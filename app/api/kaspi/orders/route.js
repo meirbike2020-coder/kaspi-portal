@@ -49,6 +49,8 @@ async function fetchState(state, from, to, kaspiToken) {
         deliveryCostForSeller: a.deliveryCostForSeller ?? null,
         creationDate: a.creationDate,
         preOrder: a.preOrder ?? false,
+        customerName: a.customer?.firstName || a.customer?.name || '',
+        customerPhone: a.customer?.cellPhone || '',
       });
     }
     const pageCount = body.meta?.pageCount ?? 1;
