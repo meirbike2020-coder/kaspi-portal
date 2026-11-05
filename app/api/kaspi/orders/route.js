@@ -72,7 +72,8 @@ export async function GET(request) {
 
   try {
     const results = await Promise.all(STATES.map((s) => fetchState(s, from, to, kaspiToken)));
-    const orders = results.flat().sort((a, b) => b.creationDate - a.creationDate);
+    // Kaspi may return orders slightly outside the range, so filter by creation date ourselves.
+    const orders = results.flat().filter((o) => o.creationDate >= from).sort((a, b) => b.creationDate - a.creationDate);
     return json({ days, orders });
   } catch (e) {
     return json({ error: e.name === 'TimeoutError' ? 'Kaspi не ответил за 15 секунд. Попробуйте ещё раз.' : e.message }, 502);
