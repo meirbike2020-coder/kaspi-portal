@@ -49,3 +49,6 @@ button:disabled { opacity: .6; cursor: default; }
 .error { color: var(--bad); }
 .login { max-width: 380px; margin: 10vh auto; display: flex; flex-direction: column; gap: 12px; }
 a { color: var(--accent); }
+.orders { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.orders th { text-align: left; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; padding: 6px 10px; border-bottom: 1px solid var(--line); }
+.orders td { padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }

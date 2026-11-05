@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import AuthGate from '@/components/AuthGate';
 import ProductCard from '@/components/ProductCard';
+import KaspiOrders from '@/components/KaspiOrders';
 import { supabase } from '@/lib/supabase';
 import { calcProduct, money, STATUSES } from '@/lib/calc';
 
@@ -10,6 +11,7 @@ function Portal({ session }) {
   const [settings, setSettings] = useState(null);
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState('all');
+  const [view, setView] = useState('products');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -73,6 +75,14 @@ function Portal({ session }) {
         </div>
       </div>
 
+      <div className="tabs" role="group" aria-label="Раздел">
+        <button type="button" aria-pressed={view === 'products'} onClick={() => setView('products')}>Товары и ниши</button>
+        <button type="button" aria-pressed={view === 'orders'} onClick={() => setView('orders')}>Заказы Kaspi</button>
+      </div>
+
+      {view === 'orders' && <KaspiOrders />}
+
+      {view === 'products' && (<>
       {error && <p className="error panel">{error}</p>}
 
       {settings && (
@@ -117,6 +127,7 @@ function Portal({ session }) {
       ))}
 
       <p className="muted">Комиссия Kaspi зависит от категории, доставка зависит от цены и веса. Точные тарифы смотрите в кабинете продавца.</p>
+      </>)}
     </main>
   );
 }
